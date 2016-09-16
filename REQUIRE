@@ -1,0 +1,6 @@
+julia 0.4
+AutomotiveDrivingModels
+Distributions
+PyCall
+BayesNets
+ConjugatePriors
