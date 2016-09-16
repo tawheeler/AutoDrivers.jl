@@ -1,3 +1,3 @@
 # Auto Drivers
 
-Advanced human driving models for AutomotiveDrivingModels.jl
+Advanced human driving models for [AutomotiveDrivingModels.jl](https://github.com/tawheeler/AutomotiveDrivingModels.jl).
