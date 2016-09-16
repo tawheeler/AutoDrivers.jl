@@ -1,6 +1,3 @@
-using AutoDrivers.GaussianMixtureRegressionDrivers
-using Distributions
-
 let
 
     vec_A = Array(Matrix{Float64}, 2)
