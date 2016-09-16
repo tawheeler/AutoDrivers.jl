@@ -7,7 +7,7 @@ using Base.Test
 using AutoDrivers
 
 my_tests = [
-    # "GaussianMixtureRegressionDrivers.jl",
+    "GaussianMixtureRegressionDrivers/runtests.jl",
     # "ConditionalLinearGaussianDrivers.jl",
     ]
 
