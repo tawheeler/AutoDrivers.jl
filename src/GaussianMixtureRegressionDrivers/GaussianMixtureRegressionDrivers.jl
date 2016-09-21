@@ -5,6 +5,8 @@ using Distributions
 using Compat
 using PyCall
 
+import AutomotiveDrivingModels: get_name, action_context, reset_hidden_state!, observe!
+
 const SKLEARN_MIXTURE = PyCall.PyNULL()
 function __init__()
     copy!(SKLEARN_MIXTURE, pyimport("sklearn.mixture"))
