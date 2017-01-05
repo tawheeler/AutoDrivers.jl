@@ -106,60 +106,6 @@ function calc_bic_score(gmr::GMR, YX::Matrix{Float64}, chosen_indicators::Vector
 
     logl - log(m)*nsuffstats(gmr)/2
 end
-function nearestSPD(A::Matrix{Float64})
-
-    # see http://www.mathworks.com/matlabcentral/fileexchange/42885-nearestspd
-
-    # output:
-    #  α, β ≥ 0.0 such that
-    #         α ≤ δ₂(A) ≤ β ≤ α + 2 max(fα, tol)
-    #  and a PSD matrix X such that |A - X|₂ = β
-
-    n = size(A, 1)
-    @assert(n == size(A, 2)) # ensure it is square
-
-    I = eye(n)
-
-    # symmetrize A into B
-    B = (A+A')./2
-
-    # Compute the symmetric polar factor of B. Call it H.
-    # Clearly H is itself SPD.
-    U, σ, V = svd(B)
-    H = V*diagm(σ)*V'
-
-    # get Ahat in the above formula
-    Ahat = (B+H)/2
-
-    # ensure symmetry
-    Ahat = (Ahat + Ahat')/2;
-
-    # test that Ahat is in fact PD. if it is not so, then tweak it just a bit.
-    worked = false
-    iteration_count = 0
-    while !worked && iteration_count < 100
-
-        iteration_count += 1
-
-        try
-            chol(Ahat)
-            worked = true
-        catch
-            # do nothing
-        end
-
-        if !worked
-            # Ahat failed the chol test. It must have been just a hair off,
-            # due to floating point trash, so it is simplest now just to
-            # tweak by adding a tiny multiple of an identity matrix.
-
-            min_eig = minimum(eigvals(Ahat))
-            Ahat = Ahat + (-min_eig*iteration_count.^2 + eps(Float32))*I
-        end
-    end
-
-    Ahat
-end
 
 function _pull_YX_means_stdevs{A}(
     data::EvaluationData,
